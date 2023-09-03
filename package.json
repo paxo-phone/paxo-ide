@@ -2,6 +2,7 @@
   "name": "paxo-ide",
   "version": "1.0.0",
   "private": false,
+  "license": "CC0-1.0",
   "main": "src/main.js",
   "scripts": {
     "build": "rollup -c",
