@@ -1,5 +1,9 @@
 <script>
-    import Sidebar from "./Sidebar.svelte";
+    import FileViewer from "./FileViewer.svelte";
+    import Sidebar from "./Sidebar.svelte"
 </script>
 
-<Sidebar projectPath="."/>
+<div class="flex">
+    <Sidebar projectPath="."/>
+    <FileViewer/>
+</div>

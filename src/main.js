@@ -3,13 +3,14 @@ const path = require("path");
 
 const createWindow = () => {
     const mainWindow = new BrowserWindow({
-      width: 800,
-      height: 600,
+      show: false,
       webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
         nodeIntegration: true
       }
     })
+    mainWindow.maximize();
+    mainWindow.show();
   
     mainWindow.loadFile(path.join(__dirname, '../public/index.html'))
 }

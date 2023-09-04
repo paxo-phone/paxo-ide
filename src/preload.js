@@ -1,5 +1,5 @@
 const { contextBridge } = require('electron')
-const { isDirectory, readFolderContent } = require('./lib/filesystem/read')
+const { isDirectory, readFolderContent, readFile } = require('./lib/filesystem/read')
 
 contextBridge.exposeInMainWorld('fs', {
     isDirectory: (path) => {
@@ -7,6 +7,9 @@ contextBridge.exposeInMainWorld('fs', {
     },
     readFolderContent: (path, files = []) => {
         return readFolderContent(path, files)
+    },
+    readFile: async (path) => {
+        return readFile(path)
     }
 })
 

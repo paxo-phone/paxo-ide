@@ -1,4 +1,5 @@
 const fs = require('fs')
+const fsp = require('fs').promises
 
 function readFolderContent(dir, files = []) {
     const fileList = fs.readdirSync(dir);
@@ -16,49 +17,20 @@ function readFolderContent(dir, files = []) {
   return files;
 }
 
-// async function readFolderContent(dirPath) {
-//     fs.readdir(dirPath, (err, fileList) => {
-//         if (err) {
-//             return;
-//         }
-        
-//         let files = [];
-        
-//         fileList.forEach(file => {
-//             const name = `${dirPath}/${file}`;
-          
-//             fs.stat(name, (err, stats) => {
-//                 if (err) {
-//                     return;
-//                 }
-                
-//                 if (stats.isDirectory()) {
-//                     getFiles(name, (err, subFiles) => {
-//                         if (err) {
-//                             return;
-//                         }
-                        
-//                         files.push(...subFiles);
-//                         if (fileList.indexOf(file) === fileList.length - 1) {
-//                         }
-//                     });
-//                 } else {
-//                     files.push(name);
-//                     if (fileList.indexOf(file) === fileList.length - 1) {
-//                     }
-//                 }
-//             });
-//         });
-//         return files
-//     })
-// }
+async function readFile(filePath) {
+    try {
+        const data = await fsp.readFile(filePath, 'utf8', (err, data) => data)
+        return data
+    } catch (err) {
+        console.error(err)
+    }
+}
 
 function isDirectory(path) {
     try {
         const stats = fs.statSync(path);
         
         if (stats.isDirectory()) {
-            console.log('Path is a directory');
             return true
         } else if (stats.isFile()) {
             return false
@@ -72,5 +44,6 @@ function isDirectory(path) {
 
 module.exports = {
     readFolderContent,
+    readFile,
     isDirectory
 }
