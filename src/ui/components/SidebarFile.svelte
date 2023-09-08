@@ -8,7 +8,7 @@
     let filePathSplitted = filePath.split('/')
     let fileName = filePathSplitted[filePathSplitted.length - 1]
 
-    async function viewFile() {
+    function viewFile() {
         fileViewerStore.set({
             filePath: filePath,
             fileName: fileName

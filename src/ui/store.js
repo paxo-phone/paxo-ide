@@ -1,3 +1,11 @@
 import { writable } from 'svelte/store'
 
-export const fileViewerStore = writable('_')
+/**
+ * contains the path of the current project
+ */
+export const projectStore = writable(undefined)
+
+export const fileViewerStore = writable({
+    projectPath: undefined,
+    projectName: undefined
+})

@@ -4,6 +4,6 @@
 </script>
 
 <div class="flex">
-    <Sidebar projectPath="."/>
+    <Sidebar/>
     <FileViewer/>
 </div>

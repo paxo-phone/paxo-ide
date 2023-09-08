@@ -542,6 +542,11 @@ video {
   margin-bottom: 0.75rem;
 }
 
+.me-3 {
+  -webkit-margin-end: 0.75rem;
+          margin-inline-end: 0.75rem;
+}
+
 .flex {
   display: flex;
 }
