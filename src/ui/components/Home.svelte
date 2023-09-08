@@ -1,6 +1,8 @@
 <script>
     import {projectStore} from "../store"
 
+    import NewProjectForm from "./NewProjectForm.svelte"
+
     $projectStore
 
     const projects = window.fs.readExistingProjects(window.fs.homeDir)
@@ -12,11 +14,21 @@
             projectPath: projects[projectName]
         })
     }
+
+    function toggleNewProjectForm() {
+        document.querySelector('#new-project-form').classList.toggle('hidden')
+    }
 </script>
 
 <h1 class="font-medium">Welcome</h1>
 
 <h3>Your projects</h3>
+
+<button on:click={toggleNewProjectForm}>New</button>
+
+<div id="new-project-form" class="hidden">
+    <NewProjectForm />
+</div>
 
 <div>
     {#each Object.keys(projects) as projectName}

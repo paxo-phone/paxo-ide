@@ -1,6 +1,6 @@
 const { contextBridge } = require('electron')
 const { isDirectory, readExistingProjects, readFolderContent, readFile } = require('./lib/filesystem/read')
-const { newFolder } = require('./lib/filesystem/write')
+const { newFile, newFolder } = require('./lib/filesystem/write')
 const os = require('os');
 const path = require("path");
 
@@ -10,6 +10,12 @@ contextBridge.exposeInMainWorld('fs', {
     homeDir: homedir,
     isDirectory: (path) => {
         return isDirectory(path)
+    },
+    newFile: (filePath, fileContent) => {
+        newFile(filePath, fileContent)
+    },
+    newFolder: (path) => {
+        newFolder(path)
     },
     readExistingProjects: (homedir) => {
         return readExistingProjects(homedir)
