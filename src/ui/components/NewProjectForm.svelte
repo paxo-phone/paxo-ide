@@ -35,6 +35,7 @@
             `${window.fs.homeDir}/paxoProjects/${slugify(data["name"])}/conf.txt`, 
             `name=${data["name"]}\nauthorContact=${data["authorContact"]}\nlink=${data["link"]}\nversion=${data["version"]}\napiVersion=${data["apiVersion"]}\nlicense=${data["license"]}\nstorage=${data["storage"]}\nexternal=${data["external"]}\ninternetRestricted=${data["internetRestricted"]}\ninternet=${data["internet"]}\nmessages=${data["messages"]}\nnotifications=${data["notifications"]}\n`
         )
+        window.location.reload()
     }
 </script>
 

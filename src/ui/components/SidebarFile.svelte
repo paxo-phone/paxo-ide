@@ -1,6 +1,7 @@
 <script>
     import {fileViewerStore} from "../store"
 
+    export let projectPath
     export let filePath
 
     $fileViewerStore
@@ -19,7 +20,7 @@
 {#if filePathSplitted[1] !== ".git" && filePathSplitted[1] !== "node_modules"}
     <div class="flex gap-1">
         {#each filePathSplitted as folder}
-            {#if folder !== "."}
+            {#if folder !== projectPath}
                 <button on:click={viewFile}>{folder}</button>
             {/if}
         {/each}

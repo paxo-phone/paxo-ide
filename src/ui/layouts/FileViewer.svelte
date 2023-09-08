@@ -12,7 +12,7 @@
     })
 </script>
 
-<div class="h-screen overflow-scroll" style="width: 85%">
+<div class="h-screen overflow-scroll" style="width: 80%">
     {#if currentFileData.fileName}
         <h1 class="font-medium mb-3">{currentFileData.fileName}</h1>
         {#await currentFileContent}
