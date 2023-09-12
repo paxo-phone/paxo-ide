@@ -1,4 +1,5 @@
 const { contextBridge } = require('electron')
+const fileTypes = require('./lib/filesystem/filesTypes')
 const { isDirectory, readExistingProjects, readFolderContent, readFile } = require('./lib/filesystem/read')
 const { newFile, newFolder } = require('./lib/filesystem/write')
 const os = require('os');
@@ -8,6 +9,7 @@ const homedir = os.homedir()
 
 contextBridge.exposeInMainWorld('fs', {
     homeDir: homedir,
+    fileTypes: fileTypes,
     isDirectory: (path) => {
         return isDirectory(path)
     },

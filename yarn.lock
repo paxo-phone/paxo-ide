@@ -833,6 +833,16 @@ minimatch@^5.0.1:
   dependencies:
     brace-expansion "^2.0.1"
 
+monaco-editor@^0.43.0:
+  version "0.43.0"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.43.0.tgz#cb02a8d23d1249ad00b7cffe8bbecc2ac09d4baf"
+  integrity sha512-cnoqwQi/9fml2Szamv1XbSJieGJ1Dc8tENVMD26Kcfl7xGQWp7OBKMjlwKVGYFJ3/AXJjSOGvcqK7Ry/j9BM1Q==
+
+monaco-loader@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/monaco-loader/-/monaco-loader-1.0.0.tgz#7cfd7a8ba5de0f32b015b03df983e08e09fcb387"
+  integrity sha512-rVdJWvb/1pkfS958FXnnzSrq17hT2CcCg6DPW8yu5eZro52E2oAnpaXKA/XUnREgNp/tnLWvFFLsw4nlwzVZQw==
+
 mri@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/mri/-/mri-1.2.0.tgz#6721480fec2a11a4889861115a48b6cbe7cc8f0b"

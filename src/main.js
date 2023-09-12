@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, session } = require("electron");
 const path = require("path");
 
 const createWindow = () => {
@@ -21,6 +21,12 @@ app.whenReady().then(() => {
     app.on('activate', () => {
       if (BrowserWindow.getAllWindows().length === 0) createWindow()
     })
+
+    session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+      const headers = details.responseHeaders;
+      headers['Content-Security-Policy'] = "script-src 'self' https://cdn.jsdelivr.net";
+      callback({ responseHeaders: headers });
+    });
 })
 
 app.on('window-all-closed', () => {

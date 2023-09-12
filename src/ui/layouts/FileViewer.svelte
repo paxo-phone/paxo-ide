@@ -1,14 +1,18 @@
 <script>
-    import FileContainer from "../components/FileContainer.svelte";
+    import MonacoEditor from "../components/MonacoEditor.svelte";
     import Home from "../components/Home.svelte";
     import {fileViewerStore} from "../store"
 
     let currentFileData
     let currentFileContent
+    let currentFileNameSplitted
+    let currentFileLanguage
 
     fileViewerStore.subscribe(file => {
         currentFileData = file
         currentFileContent = window.fs.readFile(currentFileData.filePath)
+        currentFileNameSplitted = currentFileData.fileName ? currentFileData.fileName.split('.') : undefined
+        currentFileLanguage = currentFileNameSplitted ? currentFileNameSplitted[currentFileNameSplitted.length - 1] : undefined
     })
 </script>
 
@@ -18,7 +22,7 @@
         {#await currentFileContent}
             <p>Loading</p>
         {:then code} 
-            <FileContainer {code} />
+            <MonacoEditor {code} {currentFileLanguage} />
         {/await}
     {:else}
         <Home/>
