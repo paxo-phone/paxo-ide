@@ -1,7 +1,8 @@
 const { contextBridge } = require('electron')
+const { deleteFile } = require('./lib/filesystem/delete')
 const fileTypes = require('./lib/filesystem/filesTypes')
 const { isDirectory, readExistingProjects, readFolderContent, readFile } = require('./lib/filesystem/read')
-const { newFile, newFolder } = require('./lib/filesystem/write')
+const { editFile, newFile, newFolder } = require('./lib/filesystem/write')
 const os = require('os');
 const path = require("path");
 
@@ -12,6 +13,12 @@ contextBridge.exposeInMainWorld('fs', {
     fileTypes: fileTypes,
     isDirectory: (path) => {
         return isDirectory(path)
+    },
+    deleteFile: (filePath) => {
+        return deleteFile(filePath)
+    },
+    editFile: (filePath, newFileContent) => {
+        editFile(filePath, newFileContent)
     },
     newFile: (filePath, fileContent) => {
         newFile(filePath, fileContent)

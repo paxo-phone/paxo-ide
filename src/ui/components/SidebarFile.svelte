@@ -15,14 +15,20 @@
             fileName: fileName
         })
     }
+
+    function deleteFile() {
+        window.fs.deleteFile(filePath)
+        window.location.reload()
+    }
 </script>
 
 {#if filePathSplitted[1] !== ".git" && filePathSplitted[1] !== "node_modules"}
-    <div class="flex gap-1">
+    <div class="flex gap-1 relative">
         {#each filePathSplitted as folder}
             {#if folder !== projectPath}
                 <button on:click={viewFile}>{folder}</button>
             {/if}
         {/each}
+        <button class="absolute top-2 right-2" on:click={deleteFile}>D</button>
     </div>
 {/if}

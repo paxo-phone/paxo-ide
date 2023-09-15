@@ -1,8 +1,8 @@
 <script>
     import loader from '@monaco-editor/loader'
     import { onMount } from 'svelte'
-    import {fileViewerStore} from "../store"
 
+    export let filePath
     export let code
     export let language
 
@@ -19,18 +19,15 @@
         })
     })
 
-    // function save() {
-    //     console.log("saving")
-    //     document.querySelectorAll('input.editor-line').forEach(input => {
-    //         console.log(input.value)
-    //     })
-    // }
+    function save() {
+        window.fs.editFile(filePath, editor.getValue())
+    }
 
-    // document.addEventListener('keydown', (event) => {
-    //     if((event.ctrlKey || event.metaKey) && event.key === 's') {
-    //         save()
-    //     }
-    // })
+    document.addEventListener('keydown', (event) => {
+        if((event.ctrlKey || event.metaKey) && event.key === 's') {
+            save()
+        }
+    })
 </script>
 
 <div id="editor-container" style="height: 90vh;">

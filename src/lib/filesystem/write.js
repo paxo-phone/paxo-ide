@@ -24,7 +24,18 @@ function newFile(filePath, fileContent) {
     })
 }
 
+function editFile(filePath, newFileContent) {
+    fs.writeFile(filePath, newFileContent, (err) => {
+        if (err) {
+            console.error(err)
+        } else {
+            console.log('File is created successfully.')
+        }
+    })
+}
+
 module.exports = {
+    editFile,
     newFile,
     newFolder
 }

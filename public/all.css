@@ -534,8 +534,20 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
-.mb-1 {
-  margin-bottom: 0.25rem;
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.right-2 {
+  right: 0.5rem;
+}
+
+.top-3 {
+  top: 0.75rem;
 }
 
 .mb-3 {

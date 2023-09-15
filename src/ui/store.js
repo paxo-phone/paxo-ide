@@ -6,6 +6,6 @@ import { writable } from 'svelte/store'
 export const projectStore = writable(undefined)
 
 export const fileViewerStore = writable({
-    projectPath: undefined,
-    projectName: undefined
+    filePath: undefined,
+    fileName: undefined
 })
