@@ -2,13 +2,7 @@ const fs = require('fs')
 
 function newFolder(folderPath) {
     if (!fs.existsSync(folderPath)) {
-        fs.mkdir(folderPath, (err) => {
-            if (err) {
-                console.error(err)
-            } else {
-                console.log('Folder created successfully.')
-            }
-        });
+        fs.mkdirSync(folderPath, { recursive: true });
     } else {
         console.log('Folder already exists.')
     }

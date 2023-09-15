@@ -14,17 +14,17 @@
     function createNewFile(event) {
         if(event.key === "Enter" && projectPath) {
             let filePath = event.srcElement.value
-            // let filePathSplitted = filePath.split('/')
-            // let newPath = filePath
-            // filePathSplitted.forEach(item => {
-            //     if(item !== filePathSplitted[filePathSplitted.lenght - 1] || item.split('.').lenght === 1) {
-            //         window.fs.newFolder(`${projectPath}/${newPath}/${item}`)
-            //         filePath += "/" + item
-            //     } else if(item !== "" && item === filePathSplitted[filePathSplitted.lenght - 1]) {
-            //         window.fs.newFile(`${projectPath}/${newPath}/${item}`, '')
-            //     }
-            // })
-            window.fs.newFile(`${projectPath}/${filePath}`, '')
+            let filePathSplitted = filePath.split('/')
+            let folders = ""
+            if (filePathSplitted.length > 1) {  // if there's a / in the filepath
+                for(let folder of filePathSplitted) {
+                    if(filePathSplitted.indexOf(folder) + 1 !== filePathSplitted.length) {  // if the folder is the last file
+                        folders += "/" + folder
+                    }
+                }
+                window.fs.newFolder(`${projectPath}/${folders}`)
+            }
+            window.fs.newFile(`${projectPath}${folders}/${filePathSplitted[filePathSplitted.length - 1]}`, '')
             window.location.reload()
         }
     }
