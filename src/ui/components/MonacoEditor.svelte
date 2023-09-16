@@ -2,6 +2,8 @@
     import loader from '@monaco-editor/loader'
     import { onMount } from 'svelte'
 
+    import { AutoCompleteProvider } from '../../editor/autocomplete'
+
     export let filePath
     export let code
     export let language
@@ -18,6 +20,11 @@
             value: code,
             language: window.fs.fileTypes[language]
         })
+
+        let autoComplete = new AutoCompleteProvider(monaco, editor)
+        autoComplete.setTokens()
+        autoComplete.setCompletion()
+        autoComplete.setHovers()
 
         monaco.editor.setTheme(theme)
     })
