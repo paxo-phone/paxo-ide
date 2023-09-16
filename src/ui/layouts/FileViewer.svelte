@@ -1,6 +1,8 @@
 <script>
-    import MonacoEditor from "../components/MonacoEditor.svelte";
-    import Home from "../components/Home.svelte";
+    import { createEventDispatcher } from 'svelte'
+
+    import MonacoEditor from "../components/MonacoEditor.svelte"
+    import Home from "../components/Home.svelte"
     import {fileViewerStore} from "../store"
 
     let currentFileData
@@ -10,24 +12,31 @@
     let currentFileNameSplitted
     let currentFileLanguage
 
-    fileViewerStore.subscribe(file => {
+    const dispatch = createEventDispatcher()
+
+    fileViewerStore.subscribe(async file => {
         currentFileData = file
         currentFileName = currentFileData.fileName
         currentFilePath = currentFileData.filePath
-        currentFileContent = window.fs.readFile(currentFileData.filePath)
+        currentFileContent = await window.fs.readFile(currentFileData.filePath)
         currentFileNameSplitted = currentFileData.fileName ? currentFileData.fileName.split('.') : undefined
         currentFileLanguage = currentFileNameSplitted ? currentFileNameSplitted[currentFileNameSplitted.length - 1] : undefined
+        dispatch('filePathUpdated', currentFilePath)
+        dispatch('fileContentUpdated', currentFileContent)
+        dispatch('fileLanguageUpdated', currentFileLanguage)
     })
 </script>
 
 <div class="h-screen overflow-scroll w-4/5 m-3">
     {#if currentFileData.fileName}
         <h1 class="font-medium mb-3">{currentFileName}</h1>
-        {#await currentFileContent}
-            <p>Loading</p>
-        {:then code}
-            <MonacoEditor filePath={currentFilePath} {code} {currentFileLanguage} />
-        {/await}
+        <MonacoEditor 
+            bind:filePath={currentFilePath} 
+            bind:code={currentFileContent} 
+            bind:language={currentFileLanguage}
+            on:filePathUpdated={event => currentFilePath = event.detail}
+            on:fileContentUpdated={event => currentFileContent = event.detail}
+            on:fileLanguageUpdated={event => currentFileLanguage = event.detail} />
     {:else}
         <Home/>
     {/if}

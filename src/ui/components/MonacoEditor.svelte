@@ -31,6 +31,13 @@
             save()
         }
     })
+
+    $: {
+        if (editor) {
+            editor.setValue(code)
+            monaco.editor.setModelLanguage(editor.getModel(), window.fs.fileTypes[language])
+        }
+    }
 </script>
 
 <div id="editor-container" style="height: 90vh;">
