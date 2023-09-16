@@ -12,11 +12,14 @@
         await loader.init()
 
         const monaco = window.monaco
+        const theme = await window.darkMode.get() === 'dark' ? 'vs-dark' : 'vs'
 
         editor = monaco.editor.create(document.getElementById('editor-container'), {
             value: code,
             language: window.fs.fileTypes[language]
         })
+
+        monaco.editor.setTheme(theme)
     })
 
     function save() {

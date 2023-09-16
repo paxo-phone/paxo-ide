@@ -1,4 +1,4 @@
-const { app, BrowserWindow, session } = require("electron");
+const { app, BrowserWindow, session, ipcMain, nativeTheme } = require("electron");
 const path = require("path");
 
 const createWindow = () => {
@@ -14,6 +14,19 @@ const createWindow = () => {
   
     mainWindow.loadFile(path.join(__dirname, '../public/index.html'))
 }
+
+ipcMain.handle('dark-mode:toggle', () => {
+    if (nativeTheme.shouldUseDarkColors) {
+      nativeTheme.themeSource = 'light'
+    } else {
+      nativeTheme.themeSource = 'dark'
+    }
+    return nativeTheme.shouldUseDarkColors
+})
+
+ipcMain.handle('dark-mode:get', () => {
+    return nativeTheme.themeSource
+})
 
 app.whenReady().then(() => {
     createWindow()

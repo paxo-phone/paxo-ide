@@ -1,4 +1,5 @@
 <script>
+    import ModeHandler from "./ModeHandler.svelte";
     import {projectStore} from "../store"
 
     import NewProjectForm from "./NewProjectForm.svelte"
@@ -38,3 +39,5 @@
         </button>
     {/each}
 </div>
+
+<ModeHandler/>

@@ -1,4 +1,4 @@
-const { contextBridge } = require('electron')
+const { contextBridge, ipcRenderer } = require('electron')
 const { deleteFile, deleteFolder } = require('./lib/filesystem/delete')
 const fileTypes = require('./lib/filesystem/filesTypes')
 const { isDirectory, readExistingProjects, readFolderContent, readFile } = require('./lib/filesystem/read')
@@ -7,6 +7,11 @@ const os = require('os');
 const path = require("path");
 
 const homedir = os.homedir()
+
+contextBridge.exposeInMainWorld('darkMode', {
+    toggle: () => ipcRenderer.invoke('dark-mode:toggle'),
+    get: () => ipcRenderer.invoke('dark-mode:get')
+})
 
 contextBridge.exposeInMainWorld('fs', {
     homeDir: homedir,

@@ -546,8 +546,8 @@ video {
   right: 0.5rem;
 }
 
-.top-3 {
-  top: 0.75rem;
+.top-2 {
+  top: 0.5rem;
 }
 
 .mb-3 {
@@ -581,4 +581,22 @@ video {
 
 .font-medium {
   font-weight: 500;
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #333;
+    color: white;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background: #ddd;
+    color: black;
+  }
 }
