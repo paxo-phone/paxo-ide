@@ -49,10 +49,8 @@
     })
 </script>
 
-<div class="h-screen overflow-scroll" style="width: 20%">
-    <div>
-        <input type="text" id="newFile" on:keydown={createNewFile}>
-    </div>
+<div class="h-screen overflow-scroll w-1/5">
+    <input type="text" id="newFile" on:keydown={createNewFile} class="w-full">
     {#each files as file}
         <SidebarFile {projectPath} filePath={file} />
     {/each}

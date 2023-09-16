@@ -29,6 +29,6 @@
                 <button on:click={viewFile}>{folder}</button>
             {/if}
         {/each}
-        <button class="absolute top-2 right-2" on:click={deleteFile}>D</button>
+        <button class="absolute translate-x-1/2 right-2" on:click={deleteFile}>D</button>
     </div>
 {/if}

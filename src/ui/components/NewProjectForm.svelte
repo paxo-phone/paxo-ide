@@ -39,10 +39,14 @@
     }
 </script>
 
-<div>
+<div class="w-full">
     {#each Object.keys(fields) as field}
-        <label for="{field}">{field}</label>
-        <input type="text" id="{field}" placeholder="{field}" required={fields[field] === "required"}>
+        <div class="flex w-full justify-between mt-2">
+            <label for="{field}" class="w-1/5">{field}</label>
+            <input type="text" id="{field}" placeholder="{field}" required={fields[field] === "required"} class="w-4/5">
+        </div>
     {/each}
-    <button on:click={createProject}>Create project</button>
+    <div class="w-full text-center">
+        <button on:click={createProject} class="mt-3 mb-3">Create project</button>
+    </div>
 </div>

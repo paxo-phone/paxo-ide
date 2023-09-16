@@ -546,8 +546,12 @@ video {
   right: 0.5rem;
 }
 
-.top-2 {
-  top: 0.5rem;
+.m-3 {
+  margin: 0.75rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
 }
 
 .mb-3 {
@@ -557,6 +561,14 @@ video {
 .me-3 {
   -webkit-margin-end: 0.75rem;
           margin-inline-end: 0.75rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-3 {
+  margin-top: 0.75rem;
 }
 
 .flex {
@@ -571,12 +583,45 @@ video {
   height: 100vh;
 }
 
+.w-1\/5 {
+  width: 20%;
+}
+
+.w-4\/5 {
+  width: 80%;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.translate-x-1\/2 {
+  --tw-translate-x: 50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
 .gap-1 {
   gap: 0.25rem;
 }
 
+.gap-3 {
+  gap: 0.75rem;
+}
+
+.gap-5 {
+  gap: 1.25rem;
+}
+
 .overflow-scroll {
   overflow: scroll;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .font-medium {
@@ -589,14 +634,14 @@ video {
 
 @media (prefers-color-scheme: dark) {
   body {
-    background: #333;
+    background: #1e1e1e;
     color: white;
   }
 }
 
 @media (prefers-color-scheme: light) {
   body {
-    background: #ddd;
+    background: #fff;
     color: black;
   }
 }

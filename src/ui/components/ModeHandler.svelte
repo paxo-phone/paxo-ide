@@ -13,4 +13,7 @@
     }
 </script>
 
-<button on:click={toggleMode}>{mode}</button>
+<div class="flex gap-3">
+    <p>Mode:</p>
+    <button on:click={toggleMode}>{mode}</button>
+</div>
