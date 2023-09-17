@@ -32,8 +32,26 @@
         console.log(data)
         window.fs.newFolder(`${window.fs.homeDir}/paxoProjects/${slugify(data["name"])}`)
         window.fs.newFile(
-            `${window.fs.homeDir}/paxoProjects/${slugify(data["name"])}/conf.txt`, 
-            `name=${data["name"]}\nauthorContact=${data["authorContact"]}\nlink=${data["link"]}\nversion=${data["version"]}\napiVersion=${data["apiVersion"]}\nlicense=${data["license"]}\nstorage=${data["storage"]}\nexternal=${data["external"]}\ninternetRestricted=${data["internetRestricted"]}\ninternet=${data["internet"]}\nmessages=${data["messages"]}\nnotifications=${data["notifications"]}\n`
+            `${window.fs.homeDir}/paxoProjects/${slugify(data["name"])}/conf.toml`, 
+            `title = "Paxo App: ${data["name"]} by ${data["author"]}"\n
+[app_info]
+name = "${data["name"]}"
+version = "${data["version"]}"
+api_version = "${data["apiVersion"]}"
+license = "${data["license"]}"
+
+[author]
+author = "${data["author"]}"
+author_contact = "${data["authorContact"]}"
+link = "${data["link"]}"
+
+[permissions]
+storage = "${data["storage"]}"
+external = "${data["external"]}"
+internet_restricted = "${data["internetRestricted"]}"
+internet = "${data["internet"]}"
+messages = "${data["messages"]}"
+notifications = "${data["notifications"]}"\n`
         )
         window.location.reload()
     }

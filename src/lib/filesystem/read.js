@@ -23,7 +23,7 @@ function readExistingProjects(homedir) {
     let projectsOutput = {}
 
     projects.forEach(async (project) => {
-        const confFilePath = join(homedir, `/paxoProjects/${project}/conf.txt`)
+        const confFilePath = join(homedir, `/paxoProjects/${project}/conf.toml`)
         let confFile
         
         try{
@@ -32,8 +32,7 @@ function readExistingProjects(homedir) {
         }
 
         if(confFile) {
-            let projectName = confFile.split('\n')[0].split("name=")[1]
-            projectsOutput[projectName] = join(homedir, `/paxoProjects/${project}`)
+            projectsOutput[project] = join(homedir, `/paxoProjects/${project}`)
         }
     })
 

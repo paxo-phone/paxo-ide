@@ -14,6 +14,7 @@
             projectName: projectName,
             projectPath: projects[projectName]
         })
+        window.location.reload()
     }
 
     function toggleNewProjectForm() {

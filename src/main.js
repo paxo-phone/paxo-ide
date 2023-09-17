@@ -8,7 +8,8 @@ const createWindow = () => {
       webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
         nodeIntegration: true
-      }
+      },
+      icon: path.join(__dirname, '../public/logo.jpg')
     })
     mainWindow.maximize();
     mainWindow.show();
