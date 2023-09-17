@@ -9,7 +9,7 @@ const createWindow = () => {
         preload: path.join(__dirname, 'preload.js'),
         nodeIntegration: true
       },
-      icon: path.join(__dirname, '../public/logo.jpg')
+      icon: path.join(__dirname, '../public/logo.png')
     })
     mainWindow.maximize();
     mainWindow.show();

@@ -50,7 +50,10 @@
 </script>
 
 <div class="h-screen overflow-scroll w-1/5">
-    <input type="text" id="newFile" on:keydown={createNewFile} class="w-full">
+    <div class="flex">
+        <i class="bi bi-file-earmark-plus"></i>
+        <input type="text" id="newFile" on:keydown={createNewFile} class="w-full">
+    </div>
     {#each files as file}
         <SidebarFile {projectPath} filePath={file} />
     {/each}

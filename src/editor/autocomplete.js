@@ -215,8 +215,8 @@ export class AutoCompleteProvider {
             getWidth: { type: 'method', text: 'obj:getWidth() *Get width of a widget*' },
             getHeight: { type: 'method', text: 'obj:getHeight() *Get height of a widget*' },
             setColor: { type: 'method', text: 'obj:setColor(COLOR_*) *Set a color on a widget*' },
-            setText: { type: 'method', text: 'obj:setText(text) *Display a text in a widget*' },
-            fillRect: { type: 'method', text: 'obj:fillRectangle(x, y, w, h, COLOR_*) *Draw a rectangle*' },
+            setText: { type: 'method', text: 'obj:setText(text) *Display a text in a label*. **REQUIREMENT**: obj must be a label' },
+            fillRect: { type: 'method', text: 'obj:fillRect(x, y, w, h, COLOR_*) *Draw a rectangle*. **REQUIREMENT**: obj must be a canvas' },
             push: { type: 'method', text: 'obj:push() *Updates a canvas element*. **REQUIREMENT**: obj must be a canvas' },
             onClick: { type: 'method', text: 'obj:onClick(cb) *Takes a callback in args that will be called when the widget is clicked*' },
             
