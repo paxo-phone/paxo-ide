@@ -123,6 +123,49 @@ export class AutoCompleteProvider {
     setCompletion() {
         this.monaco.languages.registerCompletionItemProvider('lua', {
             provideCompletionItems: (model, position) => {
+                let lineContent = model.getLineContent(position.lineNumber)
+
+                if(
+                    lineContent.split(/[.\s]+/)[lineContent.split(/[.\s]+/).length - 2] === "paxolib" || 
+                    lineContent.split(/[.\s]+/)[lineContent.split(/[.\s]+/).length - 2] === "paxo" || 
+                    lineContent.split(/[.\s]+/)[lineContent.split(/[.\s]+/).length - 2] === "p"
+                ) {
+                    return {
+                        suggestions: [
+                            { label : 'setWindow', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'setWindow(', detail: 'paxolib.setWindow(window)' },
+                            { label : 'getWindow', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'getWindow(', detail: 'paxolib.getWindow()' },
+                            { label : 'window', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'window(', detail: 'paxolib.window(name)' },
+                            { label : 'box', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'box(', detail: 'paxolib.box(window, x, y, w, h)' },
+                            { label : 'label', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'label(', detail: 'paxolib.label(window, x, y, w, h)' },
+                            { label : 'button', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'button(', detail: 'paxolib.button(window, x, y, w, h)' },
+                            { label : 'canvas', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'canvas(', detail: 'paxolib.canvas(window, x, y, w, h)' },
+                            { label : 'sleep', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'sleep(', detail: 'paxolib.sleep(ms)' },
+                            { label : 'readFile', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'readFile(', detail: 'paxolib.readFile(path)' },
+                            { label : 'writeFile', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'writeFile(', detail: 'paxolib.writeFile(path, content)' },
+                        ]
+                    }
+                } 
+                else if(lineContent[lineContent.length - 2] === ':') {
+                    console.log('hi2')
+                    return {
+                        suggestions: [
+                            { label : 'setX', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'setX(', detail: 'obj:setX()' },
+                            { label : 'setY', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'setY(', detail: 'obj:setY()' },
+                            { label : 'getX', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'getX(', detail: 'obj:getX()' },
+                            { label : 'getY', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'getY(', detail: 'obj:getY()' },
+                            { label : 'setWidth', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'setWidth(', detail: 'obj:setWidth(w)' },
+                            { label : 'setHeight', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'setHeight(', detail: 'obj:setHeight(h)' },
+                            { label : 'getWidth', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'getWidth(', detail: 'obj:getWidth()' },
+                            { label : 'getHeight', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'getHeight(', detail: 'obj:getHeight()' },
+                            { label : 'setColor', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'setColor(', detail: 'obj:setColor(COLOR_*)' },
+                            { label : 'setText', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'setText(', detail: 'obj:setText(text)' },
+                            { label : 'fillRect', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'fillRect(', detail: 'obj:fillRect(x, y, w, h, COLOR_*)' },
+                            { label : 'push', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'push(', detail: 'obj:push()' },
+                            { label : 'onClick', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'onClick(', detail: 'obj:onClick(cb)' },
+                        ]
+                    }
+                }
+
                 return {
                     suggestions: [
                         ...['and', 'break', 'do', 'else', 'elseif', 'end', 'false', 'for', 'function', 'goto', 'if', 'in', 'local', 'nil', 'not', 'or', 'repeat', 'return', 'then', 'true', 'until', 'while'].map(k => {
@@ -143,31 +186,6 @@ export class AutoCompleteProvider {
                         { label: 'COLOR_ERROR', kind: this.monaco.languages.CompletionItemKind.Variable, insertText: 'COLOR_ERROR', detail: '#D63031' },
 
                         { label: 'print', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'print(', detail: 'print(text)' },
-
-                        { label : 'setX', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'setX(', detail: 'obj:setX()' },
-                        { label : 'setY', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'setY(', detail: 'obj:setY()' },
-                        { label : 'getX', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'getX(', detail: 'obj:getX()' },
-                        { label : 'getY', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'getY(', detail: 'obj:getY()' },
-                        { label : 'setWidth', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'setWidth(', detail: 'obj:setWidth(w)' },
-                        { label : 'setHeight', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'setHeight(', detail: 'obj:setHeight(h)' },
-                        { label : 'getWidth', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'getWidth(', detail: 'obj:getWidth()' },
-                        { label : 'getHeight', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'getHeight(', detail: 'obj:getHeight()' },
-                        { label : 'setColor', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'setColor(', detail: 'obj:setColor(COLOR_*)' },
-                        { label : 'setText', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'setText(', detail: 'obj:setText(text)' },
-                        { label : 'fillRect', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'fillRect(', detail: 'obj:fillRect(x, y, w, h, COLOR_*)' },
-                        { label : 'push', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'push(', detail: 'obj:push()' },
-                        { label : 'onClick', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'onClick(', detail: 'obj:onClick(cb)' },
-                        
-                        { label : 'setWindow', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'setWindow(', detail: 'paxolib.setWindow(window)' },
-                        { label : 'getWindow', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'getWindow(', detail: 'paxolib.getWindow()' },
-                        { label : 'window', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'window(', detail: 'paxolib.window(name)' },
-                        { label : 'box', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'box(', detail: 'paxolib.box(window, x, y, w, h)' },
-                        { label : 'label', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'label(', detail: 'paxolib.label(window, x, y, w, h)' },
-                        { label : 'button', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'button(', detail: 'paxolib.button(window, x, y, w, h)' },
-                        { label : 'canvas', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'canvas(', detail: 'paxolib.canvas(window, x, y, w, h)' },
-                        { label : 'sleep', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'sleep(', detail: 'paxolib.sleep(ms)' },
-                        { label : 'readFile', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'readFile(', detail: 'paxolib.readFile(path)' },
-                        { label : 'writeFile', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'writeFile(', detail: 'paxolib.writeFile(path, content)' },
                     ],
                 }
             },
