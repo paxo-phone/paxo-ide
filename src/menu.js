@@ -4,7 +4,7 @@ const template = [
     // role: appMenu (macOS)
     ...(isMac
         ? [{
-            label: app.name,
+            label: "PAXO IDE",
             submenu: [
                 { role: 'about' },
                 { type: 'separator' },

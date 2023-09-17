@@ -68,9 +68,14 @@ function isDirectory(folderPath) {
     }
 }
 
+function isFileExists(filePath) {
+    return fs.existsSync(filePath)
+}
+
 module.exports = {
     readFolderContent,
     readExistingProjects,
     readFile,
-    isDirectory
+    isDirectory,
+    isFileExists
 }

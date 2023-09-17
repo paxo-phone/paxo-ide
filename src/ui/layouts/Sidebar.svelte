@@ -36,11 +36,10 @@
         }
         if(projectPath) {
             files = getFiles(projectPath)
-            localStorage.setItem("projectPath", currentProjectData.projectName)
             localStorage.setItem("projectPath", projectPath)
         } else {
             projectPath = localStorage.getItem("projectPath")
-            if(projectPath) {
+            if(projectPath && window.fs.isFileExists(projectPath)) {
                 files = getFiles(projectPath)
             } else {
                 files = []

@@ -1,7 +1,7 @@
 const { contextBridge, ipcRenderer } = require('electron')
 const { deleteFile, deleteFolder } = require('./lib/filesystem/delete')
 const fileTypes = require('./lib/filesystem/filesTypes')
-const { isDirectory, readExistingProjects, readFolderContent, readFile } = require('./lib/filesystem/read')
+const { isDirectory, isFileExists, readExistingProjects, readFolderContent, readFile } = require('./lib/filesystem/read')
 const { editFile, newFile, newFolder } = require('./lib/filesystem/write')
 const os = require('os');
 const path = require("path");
@@ -18,6 +18,9 @@ contextBridge.exposeInMainWorld('fs', {
     fileTypes: fileTypes,
     isDirectory: (path) => {
         return isDirectory(path)
+    },
+    isFileExists: (path) => {
+        return isFileExists(path)
     },
     deleteFile: (filePath) => {
         return deleteFile(filePath)
