@@ -1,10 +1,17 @@
 # paxo-ide
 
-<!--https://dev.to/khangnd/build-a-desktop-app-with-electron-and-svelte-44dp-->
+The official editor for paxo-phone apps development, with support of the paxolib api.
+
+**Disclaimer:** This is not a stable version of the software. Some bugs may appear.
 
 # Installation
 `git clone https://github.com/paxo-phone/paxo-ide` 
 `cd paxo-ide` 
-`yarn` 
-`yarn run tw-build` 
-`yarn run dev` 
+`.\PaxoIDE.sh` 
+
+# Usage
+
+- Create a new project.
+- Open it
+- You are now ready to dev your app.
+- For testing, you should get the emulator, run it and register your app (cf: guidelines in the discord server: https://discord.gg/EetuNuqHJx post: "Applications").
