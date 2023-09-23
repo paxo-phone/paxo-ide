@@ -1,3 +1,5 @@
+const config = require('./package.json')
+
 module.exports = {
   packagerConfig: {
     asar: true
@@ -7,19 +9,28 @@ module.exports = {
     {
       name: '@electron-forge/maker-squirrel',
       config: {
-        authors: require('./package.json').author,
-        description: require('./package.json').description
+        authors: config.author,
+        description: config.description
       }
     },
     {
       name: '@electron-forge/maker-deb',
       config: {
         options: {
-          maintainer: require('./package.json').maintainers,
-          homepage: require('./package.json').repository.url
+          maintainer: config.maintainers,
+          homepage: config.repository.url,
+          name: config.name,
+          icon: './public/logo.ico'
         }
       }
+    },
+
+    {
+      name: '@electron-forge/maker-zip',
+      platforms: ['darwin', 'linux'],
+      config: {}
     }
+
   ],
   plugins: [
     {
