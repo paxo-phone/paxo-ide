@@ -1,5 +1,11 @@
 {
   "name": "paxo-ide",
+  "description": "An IDE to make apps and addons for the PaxoPhone",
+  "author": "Paxo team",
+  "maintainers": [
+    "Welpike",
+    "Gabriel"
+  ],
   "version": "1.0.0",
   "private": false,
   "license": "CC0-1.0",
@@ -7,10 +13,18 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "electron .",
-    "tw-build": "npx tailwindcss -i ./src/ui/css/app.css -o ./public/all.css"
+    "start": "electron-forge start",
+    "tw-build": "npx tailwindcss -i ./src/ui/css/app.css -o ./public/all.css",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^6.4.2",
+    "@electron-forge/maker-deb": "^6.4.2",
+    "@electron-forge/maker-rpm": "^6.4.2",
+    "@electron-forge/maker-squirrel": "^6.4.2",
+    "@electron-forge/maker-zip": "^6.4.2",
+    "@electron-forge/plugin-auto-unpack-natives": "^6.4.2",
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-node-resolve": "^15.0.0",
     "@rollup/plugin-terser": "^0.4.0",
@@ -23,8 +37,12 @@
     "tailwindcss": "^3.3.3"
   },
   "dependencies": {
-    "monaco-editor": "^0.43.0",
     "@monaco-editor/loader": "^1.3.3",
+    "electron-squirrel-startup": "^1.0.0",
+    "monaco-editor": "^0.43.0",
     "sirv-cli": "^2.0.0"
+  },
+  "repository": {
+    "url": "https://github.com/paxo-phone/paxo-ide"
   }
 }
