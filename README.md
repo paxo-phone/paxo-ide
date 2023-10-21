@@ -1,13 +1,13 @@
 # paxo-ide
 
-The official editor for paxo-phone apps development, with support of the paxolib api.
+The official editor for PaxoPhone apps developpment, with support of the PaxoLib API.
 
 **Disclaimer:** This is not a stable version of the software. Some bugs may appear.
 
 # Installation
 `git clone https://github.com/paxo-phone/paxo-ide` 
 `cd paxo-ide` 
-`.\PaxoIDE.sh` 
+`make` 
 
 # Usage
 
