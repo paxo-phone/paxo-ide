@@ -1,8 +1,11 @@
 <script>
+    import { FileEarmarkPlus, Folder2Open } from "svelte-bootstrap-icons"
+
     import SidebarFile from "../components/SidebarFile.svelte";
     import {projectStore} from "../store"
 
     let currentProjectData
+    let projectName
     let projectPath
     let files
     
@@ -32,14 +35,17 @@
     projectStore.subscribe(project => {
         currentProjectData = project
         if(currentProjectData) {
+            projectName = currentProjectData.projectName
             projectPath = currentProjectData.projectPath
         }
         if(projectPath) {
             files = getFiles(projectPath)
+            localStorage.setItem("projectName", projectName)
             localStorage.setItem("projectPath", projectPath)
         } else {
+            projectName = localStorage.getItem("projectName", projectName)
             projectPath = localStorage.getItem("projectPath")
-            if(projectPath && window.fs.isFileExists(projectPath)) {
+            if(projectName && projectPath && window.fs.isFileExists(projectPath)) {
                 files = getFiles(projectPath)
             } else {
                 files = []
@@ -49,9 +55,13 @@
 </script>
 
 <div class="h-screen overflow-scroll w-1/5">
-    <div class="flex">
-        <i class="bi bi-file-earmark-plus"></i>
+    <div class="flex items-center">
+        <FileEarmarkPlus />
         <input type="text" id="newFile" on:keydown={createNewFile} class="w-full">
+    </div>
+    <div class="flex items-center gap-3">
+        <Folder2Open />
+        <strong>{projectName}</strong>
     </div>
     {#each files as file}
         <SidebarFile {projectPath} filePath={file} />

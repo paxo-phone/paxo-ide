@@ -3,3 +3,5 @@ public/build/
 public/all.css
 
 .DS_Store
+
+out/

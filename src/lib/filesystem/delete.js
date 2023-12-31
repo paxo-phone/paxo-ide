@@ -1,6 +1,10 @@
 const fs = require('fs')
 const { readFolderContent } = require('./read')
 
+/**
+ * Deletes a specified file with its path.
+ * @param {string} filePath
+ */
 function deleteFile(filePath) {
     fs.unlinkSync(filePath)
     let directoryPath = filePath.split('/')
@@ -8,14 +12,16 @@ function deleteFile(filePath) {
     if(readFolderContent(directoryPath).length === 0) {
         deleteFolder(directoryPath)
     }
-
-    console.log('File deleted')
 }
 
+/**
+ * Deletes a specified folder with its path. If the folder isn't empty, the `recursive` param must be set to `true`.
+ * @param {string} folderPath 
+ * @param {boolean} recursive not required, default to false
+ */
 function deleteFolder(folderPath, recursive = false) {
     try {
-        fs.rmdirSync(folderPath, { recursive: recursive })
-        console.log(`${folderPath} is deleted!`)
+        fs.rmSync(folderPath, { recursive: recursive })
     } catch (err) {
         console.log(err)
     }

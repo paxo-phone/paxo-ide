@@ -1,3 +1,5 @@
+const { nativeTheme, shell } = require('electron')
+
 const isMac = process.platform === 'darwin'
 
 const template = [
@@ -23,7 +25,11 @@ const template = [
     {
         label: 'File',
         submenu: [
-            isMac ? { role: 'close' } : { role: 'quit' }
+            {
+                id: 'closeProjectItem',
+                label: 'Close project'
+            },
+            isMac ? { role: 'close' } : { role: 'quit' },
         ]
     },
     // role: editMenu
@@ -70,7 +76,17 @@ const template = [
             { role: 'zoomIn' },
             { role: 'zoomOut' },
             { type: 'separator' },
-            { role: 'togglefullscreen' }
+            { role: 'togglefullscreen' },
+            { 
+                label: 'Dark/Light mode',
+                click: async () => {
+                    if (nativeTheme.shouldUseDarkColors) {
+                        nativeTheme.themeSource = 'light'
+                    } else {
+                        nativeTheme.themeSource = 'dark'
+                    }
+                }
+            }
         ]
     },
     // role: windowMenu
@@ -96,16 +112,26 @@ const template = [
         role: 'help',
         submenu: [
             {
-                label: 'Learn More',
+                label: 'Paxo project',
                 click: async () => {
-                    const { shell } = require('electron')
+                    await shell.openExternal('https://paxo.fr')
+                }
+            },
+            {
+                label: 'Releases notes',
+                click: async () => {
+                    await shell.openExternal('https://github.com/paxo-phone/paxo-ide/releases')
+                }
+            },
+            {
+                label: 'Contribute to the IDE',
+                click: async () => {
                     await shell.openExternal('https://github.com/paxo-phone/paxo-ide')
                 }
             },
             {
-                label: 'Discord',
+                label: 'Discord (help and support)',
                 click: async () => {
-                    const { shell } = require('electron')
                     await shell.openExternal('https://discord.gg/zRcc3RP2sF')
                 }
             }

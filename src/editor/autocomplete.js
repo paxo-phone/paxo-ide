@@ -120,6 +120,9 @@ export class AutoCompleteProvider {
         })
     }
 
+    /**
+     * Paxolib API completion
+     */
     setCompletion() {
         this.monaco.languages.registerCompletionItemProvider('lua', {
             provideCompletionItems: (model, position) => {
@@ -146,7 +149,6 @@ export class AutoCompleteProvider {
                     }
                 } 
                 else if(lineContent[lineContent.length - 2] === ':') {
-                    console.log('hi2')
                     return {
                         suggestions: [
                             { label : 'setX', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'setX(', detail: 'obj:setX()' },

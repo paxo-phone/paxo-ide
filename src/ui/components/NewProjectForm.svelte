@@ -1,19 +1,19 @@
 <script>
-    const fields = {
-        name: "required",
-        author: "required",
-        authorContact: "required",
-        link: "",
-        version: "required",
-        apiVersion: "required",
-        licence: "required",
-        storage: "",
-        external: "", 
-        internetRestricted: "",
-        internet: "",
-        messages: "",
-        notifications: "",
-    }
+    const fields = [
+        { name: "name", required: true, type: "text" },
+        { name: "author", required: true, type: "text" },
+        { name: "authorContact", required: true, type: "text" },
+        { name: "link", required: false, type: "text" },
+        { name: "version", required: true, type: "text" },
+        { name: "apiVersion", required: true, type: "text" },
+        { name: "licence", required: true, type: "text" },
+        { name: "storage", required: false, type: "checkbox" },
+        { name: "external", required: false, type: "checkbox" }, 
+        { name: "internetRestricted", required: false, type: "checkbox" },
+        { name: "internet", required: false, type: "checkbox" },
+        { name: "messages", required: false, type: "checkbox" },
+        { name: "notifications", required: false, type: "checkbox" },
+    ]
 
     function slugify(str) {
         return str
@@ -26,14 +26,18 @@
     function createProject() {
         let data = {}
 
-        Object.keys(fields).forEach(key => {
-            data[key] = document.querySelector(`#${key}`).value
+        fields.forEach(field => {
+            if (field.type === "checkbox") {
+                data[field.name] = document.querySelector(`#${field.name}`).checked
+            } else {
+                data[field.name] = document.querySelector(`#${field.name}`).value
+            }
         })
-        console.log(data)
+
         window.fs.newFolder(`${window.fs.homeDir}/paxoProjects/${slugify(data["name"])}`)
         window.fs.newFile(
             `${window.fs.homeDir}/paxoProjects/${slugify(data["name"])}/conf.toml`, 
-            `title = "Paxo App: ${data["name"]} by ${data["author"]}"\n
+            `title = "${data["name"]}"\n
 [app_info]
 name = "${data["name"]}"
 version = "${data["version"]}"
@@ -58,10 +62,10 @@ notifications = "${data["notifications"]}"\n`
 </script>
 
 <div class="w-full">
-    {#each Object.keys(fields) as field}
+    {#each fields as field}
         <div class="flex w-full justify-between mt-2">
-            <label for="{field}" class="w-1/5">{field}</label>
-            <input type="text" id="{field}" placeholder="{field}" required={fields[field] === "required"} class="w-4/5">
+            <label for="{field.name}" class="w-1/5">{field.name}</label>
+            <input type="{field.type}" id="{field.name}" placeholder="{field.name}" required="{field.required}" class="w-4/5">
         </div>
     {/each}
     <div class="w-full text-center">

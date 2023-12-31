@@ -19,3 +19,28 @@
         color: black;
     }
 }
+
+/* ===================  LOADER  =================== */
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+#loader {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    color: #fff;
+    background-color: green;                        /* IMPORTANT: REPLACE BY THE HEXA OF THE PAXO LOGO */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#loader .rotate {
+    animation: rotate 1s infinite linear;
+    transform-origin: 18px 18px;
+}

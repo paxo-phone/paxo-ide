@@ -1,6 +1,6 @@
 <script>
 	import "./css/app.css"
-	import Main from "./layouts/Main.svelte";
+	import Main from "./layouts/Main.svelte"
 </script>
 
 <main>

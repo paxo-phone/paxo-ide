@@ -11,10 +11,16 @@ const createWindow = () => {
       },
       icon: path.join(__dirname, '../public/logo.png')
     })
-    mainWindow.maximize();
-    mainWindow.show();
+    mainWindow.maximize()
+    mainWindow.show()
   
     mainWindow.loadFile(path.join(__dirname, '../public/index.html'))
+
+    mainWindow.webContents.on('did-finish-load', () => {
+      mainWindow.webContents.send('app-ready');
+    })
+
+    return mainWindow
 }
 
 ipcMain.handle('dark-mode:toggle', () => {
@@ -31,10 +37,14 @@ ipcMain.handle('dark-mode:get', () => {
 })
 
 app.whenReady().then(() => {
-    const menu = Menu.buildFromTemplate(template);
-    Menu.setApplicationMenu(menu);
+    const menu = Menu.buildFromTemplate(template)
+    Menu.setApplicationMenu(menu)
 
-    createWindow()
+    let mainWindow = createWindow()
+
+    menu.getMenuItemById('closeProjectItem').click = () => {
+      mainWindow.webContents.executeJavaScript(`localStorage.removeItem('projectName');localStorage.removeItem('projectPath');window.location.reload()`, true)
+    }
   
     app.on('activate', () => {
       if (BrowserWindow.getAllWindows().length === 0) createWindow()
@@ -50,4 +60,3 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
 })
-  

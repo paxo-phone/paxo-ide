@@ -27,7 +27,7 @@
     })
 </script>
 
-<div class="h-screen overflow-scroll w-4/5 m-3">
+<div class="h-screen overflow-scroll w-4/5">
     {#if currentFileData.fileName}
         <h1 class="font-medium mb-3">{currentFileName}</h1>
         <MonacoEditor 

@@ -1,4 +1,6 @@
 <script>
+    import { FileEarmarkX } from "svelte-bootstrap-icons"
+
     import {fileViewerStore} from "../store"
 
     export let projectPath
@@ -29,6 +31,8 @@
                 <button on:click={viewFile}>{folder}</button>
             {/if}
         {/each}
-        <button class="absolute translate-x-1/2 right-2" on:click={deleteFile}><i class="bi bi-file-earmark-x"></i></button>
+        <button class="absolute translate-x-1/2 right-2" on:click={deleteFile}>
+            <FileEarmarkX />
+        </button>
     </div>
 {/if}
