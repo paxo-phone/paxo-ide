@@ -22,7 +22,7 @@ jobs:
        node-version: '18'
 
    - name: Install dependencies
-     run: npm ci
+     run: yarn
 
    - name: Build app
-     run: npm run make
+     run: yarn run make
