@@ -36,7 +36,7 @@
 
         window.fs.newFolder(`${window.fs.homeDir}/paxoProjects/${slugify(data["name"])}`)
         window.fs.newFile(
-            `${window.fs.homeDir}/paxoProjects/${slugify(data["name"])}/conf.toml`, 
+            `${window.fs.homeDir}/paxoProjects/${slugify(data["name"])}/config.toml`, 
             `title = "${data["name"]}"\n
 [app_info]
 name = "${data["name"]}"
@@ -46,7 +46,7 @@ license = "${data["license"]}"
 
 [author]
 author = "${data["author"]}"
-author_contact = "${data["authorContact"]}"
+author_contact = "${data["author"]} <${data["authorContact"]}>"
 link = "${data["link"]}"
 
 [permissions]

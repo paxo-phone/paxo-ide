@@ -1,4 +1,4 @@
-const { contextBridge, ipcRenderer } = require('electron')
+const { contextBridge, ipcRenderer, shell } = require('electron')
 const { deleteFile, deleteFolder } = require('./lib/filesystem/delete')
 const fileTypes = require('./lib/filesystem/filesTypes')
 const { isDirectory, isFileExists, readExistingProjects, readFolderContent, readFile } = require('./lib/filesystem/read')
@@ -45,6 +45,12 @@ contextBridge.exposeInMainWorld('fs', {
     },
     readFile: async (path) => {
         return readFile(path)
+    }
+})
+
+contextBridge.exposeInMainWorld('link', {
+    open: async (url) => {
+        await shell.openExternal(url)
     }
 })
 

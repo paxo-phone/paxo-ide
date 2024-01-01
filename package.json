@@ -12,7 +12,8 @@
     "start": "electron-forge start",
     "tw-build": "npx tailwindcss -i ./src/ui/css/app.css -o ./public/all.css",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "publish": "electron-forge publish"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.4.2",
