@@ -49,14 +49,14 @@ author = "${data["author"]}"
 author_contact = "${data["author"]} <${data["authorContact"]}>"
 link = "${data["link"]}"
 
-permissions = {
-    storage = "${data["storage"]}",
-    external = "${data["external"]}",
-    internet_restricted = "${data["internetRestricted"]}",
-    internet = "${data["internet"]}",
-    messages = "${data["messages"]}",
-    notifications = "${data["notifications"]}",
-}\n`
+[permissions]
+storage = "${data["storage"]}"
+external = "${data["external"]}"
+internet_restricted = "${data["internetRestricted"]}"
+internet = "${data["internet"]}"
+messages = "${data["messages"]}"
+notifications = "${data["notifications"]}"
+\n`
         )
 
         window.fs.newFile(

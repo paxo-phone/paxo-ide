@@ -130,6 +130,12 @@ const template = [
                 }
             },
             {
+                label: 'Report error',
+                click: async () => {
+                    await shell.openExternal('https://github.com/paxo-phone/paxo-ide/issues')
+                }
+            },
+            {
                 label: 'Discord (help and support)',
                 click: async () => {
                     await shell.openExternal('https://discord.gg/zRcc3RP2sF')

@@ -1,7 +1,7 @@
 <script>
     import { FileEarmarkPlus, Folder2Open } from "svelte-bootstrap-icons"
 
-    import SidebarFile from "../components/SidebarFile.svelte";
+    import SidebarFile from "../components/SidebarFile.svelte"
     import {projectStore} from "../store"
 
     let currentProjectData

@@ -2,6 +2,8 @@ const fs = require('fs')
 const fsp = require('fs').promises
 const { join } = require('path')
 
+const tomlParser = require('toml')
+
 const logger = require('../logs/handler')
 
 /**
@@ -105,10 +107,20 @@ function isFileExists(filePath) {
     return fs.existsSync(filePath)
 }
 
+async function parseConfigFile(configFilePath) {
+    const data = await readFile(configFilePath)
+    try {
+        return tomlParser.parse(data)
+    } catch (err) {
+        logger.logError("fs:read", "error while parsing config file content on line " + err.line + ", column " + err.column + ": " + err.message)
+    }
+}
+
 module.exports = {
     readFolderContent,
     readExistingProjects,
     readFile,
     isDirectory,
-    isFileExists
+    isFileExists,
+    parseConfigFile,
 }

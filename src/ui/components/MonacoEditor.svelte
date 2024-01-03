@@ -4,6 +4,7 @@
 
     import { AutoCompleteProvider } from '../../editor/autocomplete'
 
+    export let apiVersion
     export let filePath
     export let code
     export let language
@@ -30,7 +31,7 @@
             },
         }
 
-        let autoComplete = new AutoCompleteProvider(monaco, editor)
+        let autoComplete = new AutoCompleteProvider(monaco, editor, apiVersion)
         autoComplete.setTokens()
         autoComplete.setCompletion()
         autoComplete.setHovers()

@@ -4,10 +4,10 @@ const path = require("path")
 
 const logger = require('./lib/logs/handler')
 
-const { deleteFile, deleteFolder } = require('./lib/filesystem/delete')
+const pfsDelete = require('./lib/filesystem/delete')
 const fileTypes = require('./lib/filesystem/filesTypes')
-const { isDirectory, isFileExists, readExistingProjects, readFolderContent, readFile } = require('./lib/filesystem/read')
-const { editFile, newFile, newFolder } = require('./lib/filesystem/write')
+const pfsRead = require('./lib/filesystem/read')
+const pfsWrite = require('./lib/filesystem/write')
 
 const homedir = os.homedir()
 
@@ -20,34 +20,37 @@ contextBridge.exposeInMainWorld('fs', {
     homeDir: homedir,
     fileTypes: fileTypes,
     isDirectory: (path) => {
-        return isDirectory(path)
+        return pfsRead.isDirectory(path)
     },
     isFileExists: (path) => {
-        return isFileExists(path)
+        return pfsRead.isFileExists(path)
     },
     deleteFile: (filePath) => {
-        return deleteFile(filePath)
+        return pfsDelete.deleteFile(filePath)
     },
     deleteFolder: (folderPath, recursive = false) => {
-        return deleteFolder(folderPath, recursive)
+        return pfsDelete.deleteFolder(folderPath, recursive)
     },
     editFile: (filePath, newFileContent) => {
-        editFile(filePath, newFileContent)
+        pfsWrite.editFile(filePath, newFileContent)
     },
     newFile: (filePath, fileContent) => {
-        newFile(filePath, fileContent)
+        pfsWrite.newFile(filePath, fileContent)
     },
     newFolder: (path) => {
-        newFolder(path)
+        pfsWrite.newFolder(path)
     },
     readExistingProjects: (homedir) => {
-        return readExistingProjects(homedir)
+        return pfsRead.readExistingProjects(homedir)
     },
     readFolderContent: (path, files = []) => {
-        return readFolderContent(path, files)
+        return pfsRead.readFolderContent(path, files)
     },
     readFile: async (path) => {
-        return readFile(path)
+        return pfsRead.readFile(path)
+    },
+    parseConfigFile: async (configFilePath) => {
+        return pfsRead.parseConfigFile(configFilePath)
     }
 })
 
@@ -75,13 +78,13 @@ contextBridge.exposeInMainWorld('logger', {
     }
 })
 
-if(!isDirectory(path.join(homedir + "/paxoProjects"))) {
-    newFolder(path.join(homedir + "/paxoProjects"))
+if(!pfsRead.isDirectory(path.join(homedir + "/paxoProjects"))) {
+    pfsWrite.newFolder(path.join(homedir + "/paxoProjects"))
 }
 
 ipcRenderer.on('app-ready', () => {
     const loader = document.getElementById('loader');
     loader.style.display = 'none';
-});
+})
 
 logger.logInfo('preload', 'app started')

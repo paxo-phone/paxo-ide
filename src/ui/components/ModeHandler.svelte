@@ -8,7 +8,7 @@
     })
 
     async function toggleMode () {
-        const isDarkMode = await window.darkMode.toggle()
+        await window.darkMode.toggle()
         mode = await window.darkMode.get() === 'dark' ? 'Dark' : 'Light'
     }
 </script>
