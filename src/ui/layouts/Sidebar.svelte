@@ -43,11 +43,12 @@
             localStorage.setItem("projectName", projectName)
             localStorage.setItem("projectPath", projectPath)
         } else {
-            projectName = localStorage.getItem("projectName", projectName)
+            projectName = localStorage.getItem("projectName")
             projectPath = localStorage.getItem("projectPath")
             if(projectName && projectPath && window.fs.isFileExists(projectPath)) {
                 files = getFiles(projectPath)
             } else {
+                projectName = 'No project opened'  // avoid set 'null' on top of the sidebar
                 files = []
             }
         }

@@ -2,6 +2,8 @@ const fs = require('fs')
 const fsp = require('fs').promises
 const { join } = require('path')
 
+const logger = require('../logs/handler')
+
 /**
  * Read the filenames of a folder, recursively.
  * @param {string} dir 
@@ -21,7 +23,8 @@ function readFolderContent(dir, files = []) {
         }
     }
     
-    return files;
+    logger.logInfo('fs:read', 'folder successfully read')
+    return files
 }
 
 /**
@@ -34,20 +37,22 @@ function readExistingProjects(homedir) {
     let projectsOutput = {}
 
     projects.forEach(async (project) => {
-        const confFilePath = join(homedir, `/paxoProjects/${project}/conf.toml`)
-        let confFile
+        const configFilePath = join(homedir, `/paxoProjects/${project}/config.toml`)
+        let configFile
         
         // check if the config file is there. if it is, it's a valid project
         try{
-            confFile = fs.readFileSync(confFilePath, 'utf-8')
-        } catch {
+            configFile = fs.readFileSync(configFilePath, 'utf-8')
+        } catch (err) {
+            logger.logError('fs:read', 'error while fetching projects: ' + err)
         }
 
-        if(confFile) {
+        if(configFile) {
             projectsOutput[project] = join(homedir, `/paxoProjects/${project}`)
         }
     })
 
+    logger.logInfo('fs:read', 'projects fetched successfully')
     return projectsOutput
 }
 
@@ -64,7 +69,7 @@ async function readFile(filePath, encoding = 'utf8') {
         const data = await fsp.readFile(filePath, encoding, (err, data) => data)
         return data
     } catch (err) {
-        console.error(err)
+        logger.logError('fs:read', 'error reading file: ' + err)
     }
 }
 
@@ -87,7 +92,7 @@ function isDirectory(folderPath) {
             return false
         }
     } catch (err) {
-        console.error(err)
+        logger.logError('fs:read', 'unknown error : ' + err)
     }
 }
 

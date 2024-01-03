@@ -1,3 +1,8 @@
+import * as v1 from './paxolib/v1.js'
+
+const API_VERSIONS = {
+    v1
+}
 
 /**
  * https://ohdarling88.medium.com/4-steps-to-add-custom-language-support-to-monaco-editor-5075eafa156d
@@ -5,10 +10,13 @@
 export class AutoCompleteProvider {
     constructor(
         monaco,
-        editor
+        editor,
+        apiVersion = "v1"
     ){
         this.monaco = monaco
         this.editor = editor
+        this.apiVersion = apiVersion
+        this.apiData = API_VERSIONS[this.apiVersion]
     }
 
     /**
@@ -124,47 +132,47 @@ export class AutoCompleteProvider {
      * Paxolib API completion
      */
     setCompletion() {
+        const splitPattern = /[ \.,-\/#!$%\^&\*;:{}=\-_`~()]/g
+
         this.monaco.languages.registerCompletionItemProvider('lua', {
             provideCompletionItems: (model, position) => {
                 let lineContent = model.getLineContent(position.lineNumber)
+                let lastToken = lineContent.split(splitPattern)[lineContent.split(splitPattern).length - 1]
+                let secondLastToken = lineContent.split(splitPattern)[lineContent.split(splitPattern).length - 2]
 
-                if(
-                    lineContent.split(/[.\s]+/)[lineContent.split(/[.\s]+/).length - 2] === "paxolib" || 
-                    lineContent.split(/[.\s]+/)[lineContent.split(/[.\s]+/).length - 2] === "paxo" || 
-                    lineContent.split(/[.\s]+/)[lineContent.split(/[.\s]+/).length - 2] === "p"
-                ) {
+                /**
+                 * if the last token or if the second last token (e.g: `gui:w` -> ['gui', 'w']) is a paxolib namespace -> user wants to call a function
+                 */
+                if(this.apiData.API_NAMESPACES.includes(lastToken)) {
                     return {
-                        suggestions: [
-                            { label : 'setWindow', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'setWindow(', detail: 'paxolib.setWindow(window)' },
-                            { label : 'getWindow', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'getWindow(', detail: 'paxolib.getWindow()' },
-                            { label : 'window', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'window(', detail: 'paxolib.window(name)' },
-                            { label : 'box', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'box(', detail: 'paxolib.box(window, x, y, w, h)' },
-                            { label : 'label', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'label(', detail: 'paxolib.label(window, x, y, w, h)' },
-                            { label : 'button', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'button(', detail: 'paxolib.button(window, x, y, w, h)' },
-                            { label : 'canvas', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'canvas(', detail: 'paxolib.canvas(window, x, y, w, h)' },
-                            { label : 'sleep', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'sleep(', detail: 'paxolib.sleep(ms)' },
-                            { label : 'readFile', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'readFile(', detail: 'paxolib.readFile(path)' },
-                            { label : 'writeFile', kind: this.monaco.languages.CompletionItemKind.Function, insertText: 'writeFile(', detail: 'paxolib.writeFile(path, content)' },
-                        ]
+                        suggestions: this.apiData.getSuggestions(this.monaco, lastToken, 'functions')
                     }
-                } 
-                else if(lineContent[lineContent.length - 2] === ':') {
+                }
+                else if(this.apiData.API_NAMESPACES.includes(secondLastToken)) {
                     return {
-                        suggestions: [
-                            { label : 'setX', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'setX(', detail: 'obj:setX()' },
-                            { label : 'setY', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'setY(', detail: 'obj:setY()' },
-                            { label : 'getX', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'getX(', detail: 'obj:getX()' },
-                            { label : 'getY', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'getY(', detail: 'obj:getY()' },
-                            { label : 'setWidth', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'setWidth(', detail: 'obj:setWidth(w)' },
-                            { label : 'setHeight', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'setHeight(', detail: 'obj:setHeight(h)' },
-                            { label : 'getWidth', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'getWidth(', detail: 'obj:getWidth()' },
-                            { label : 'getHeight', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'getHeight(', detail: 'obj:getHeight()' },
-                            { label : 'setColor', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'setColor(', detail: 'obj:setColor(COLOR_*)' },
-                            { label : 'setText', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'setText(', detail: 'obj:setText(text)' },
-                            { label : 'fillRect', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'fillRect(', detail: 'obj:fillRect(x, y, w, h, COLOR_*)' },
-                            { label : 'push', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'push(', detail: 'obj:push()' },
-                            { label : 'onClick', kind: this.monaco.languages.CompletionItemKind.Method, insertText: 'onClick(', detail: 'obj:onClick(cb)' },
-                        ]
+                        suggestions: this.apiData.getSuggestions(this.monaco, secondLastToken, 'functions')
+                    }
+                }
+                /**
+                 * if there's a ':' in the lasts characters of the line
+                 * 
+                 * it's not really clean but it's enough for monaco (monaco will continue to suggest after the three chars passed)
+                 */
+                else if(
+                    lineContent[lineContent.length - 1] === ':' ||
+                    lineContent[lineContent.length - 2] === ':' ||
+                    lineContent[lineContent.length - 3] === ':'
+                ) {
+                    // TODO: process to determine the type of the object to suggest the rights methods
+                    let suggests = []
+
+                    // get all methods of the paxolib
+                    this.apiData.API_NAMESPACES.forEach(namespace => {
+                        suggests = suggests.concat(this.apiData.getSuggestions(this.monaco, namespace, 'methods'))
+                    })
+
+                    return {
+                        suggestions: suggests
                     }
                 }
 
@@ -214,44 +222,6 @@ export class AutoCompleteProvider {
     }
 
     static getDocumentation(word) {
-        const LUA_API_SIGNATURES = {
-            COLOR_LIGHT: { type: 'const', text: '#FFFFFF' },
-            COLOR_EXTRA_LIGHT: { type: 'const', text: '#F3F3F3' },
-            COLOR_DARK: { type: 'const', text: '#2D3436' },
-            COLOR_GRAY: { type: 'const', text: '#A3A3A3' },
-            COLOR_PRIMARY: { type: 'const', text: '#6C5CE7' },
-            COLOR_SUCCESS: { type: 'const', text: '#00B894' },
-            COLOR_WARNING: { type: 'const', text: '#E17055' },
-            COLOR_ERROR: { type: 'const', text: '#D63031' },
-
-            print: { type: 'function', text: 'print(text) *Displays a message in the console*' },
-
-            setX: { type: 'method', text: 'obj:setX(x) *Set x position of a widget*' },
-            setY: { type: 'method', text: 'obj:setY(y) *Set y position of a widget*' },
-            getX: { type: 'method', text: 'obj:getX() *Get x position of a widget*' },
-            getY: { type: 'method', text: 'obj:getY() *Get y position of a widget*' },
-            setWidth: { type: 'method', text: 'obj:setWidth(w) *Set width of a widget*' },
-            setHeight: { type: 'method', text: 'obj:setHeight(h) *Set height of a widget*' },
-            getWidth: { type: 'method', text: 'obj:getWidth() *Get width of a widget*' },
-            getHeight: { type: 'method', text: 'obj:getHeight() *Get height of a widget*' },
-            setColor: { type: 'method', text: 'obj:setColor(COLOR_*) *Set a color on a widget*' },
-            setText: { type: 'method', text: 'obj:setText(text) *Display a text in a label*. **REQUIREMENT**: obj must be a label' },
-            fillRect: { type: 'method', text: 'obj:fillRect(x, y, w, h, COLOR_*) *Draw a rectangle*. **REQUIREMENT**: obj must be a canvas' },
-            push: { type: 'method', text: 'obj:push() *Updates a canvas element*. **REQUIREMENT**: obj must be a canvas' },
-            onClick: { type: 'method', text: 'obj:onClick(cb) *Takes a callback in args that will be called when the widget is clicked*' },
-            
-            setWindow: { type: 'function', text: 'paxolib.setWindow(window) *Set a window (created before with paxolib:window())*' },
-            getWindow: { type: 'function', text: 'paxolib.getWindow() *Get current window*' },
-            window: { type: 'function', text: 'paxolib.window(name) *Create a new window*' },
-            box: { type: 'function', text: 'paxolib:box(window, x, y, w, h) *Create a new box*' },
-            label: { type: 'function', text: 'paxolib.label(window, x, y, w, h) *Create a new label*' },
-            button: { type: 'function', text: 'paxolib.button(window, x, y, w, h) *Create a new button*' },
-            canvas: { type: 'function', text: 'paxolib.canvas(window, x, y, w, h) *Create a new canvas*' },
-            sleep: { type: 'function', text: 'paxolib.sleep(ms) *Make a pause in the execution*' },
-            readFile: { type: 'function', text: 'paxolib.readFile(path) *Read file content. Nota: the current path is the app root path*' },
-            writeFile: { type: 'function', text: 'paxolib.writeFile(path, content) *Write text in a file. Nota: the current path is the app root path*' }
-        }
-        
-        return LUA_API_SIGNATURES[word]
+        return this.apiData.API_SIGNATURES[word]
     }
 }

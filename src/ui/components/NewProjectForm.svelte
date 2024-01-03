@@ -2,11 +2,11 @@
     const fields = [
         { name: "name", required: true, type: "text" },
         { name: "author", required: true, type: "text" },
-        { name: "authorContact", required: true, type: "text" },
+        { name: "authorContact", required: true, type: "email" },
         { name: "link", required: false, type: "text" },
         { name: "version", required: true, type: "text" },
         { name: "apiVersion", required: true, type: "text" },
-        { name: "licence", required: true, type: "text" },
+        { name: "license", required: true, type: "text" },
         { name: "storage", required: false, type: "checkbox" },
         { name: "external", required: false, type: "checkbox" }, 
         { name: "internetRestricted", required: false, type: "checkbox" },
@@ -49,14 +49,25 @@ author = "${data["author"]}"
 author_contact = "${data["author"]} <${data["authorContact"]}>"
 link = "${data["link"]}"
 
-[permissions]
-storage = "${data["storage"]}"
-external = "${data["external"]}"
-internet_restricted = "${data["internetRestricted"]}"
-internet = "${data["internet"]}"
-messages = "${data["messages"]}"
-notifications = "${data["notifications"]}"\n`
+permissions = {
+    storage = "${data["storage"]}",
+    external = "${data["external"]}",
+    internet_restricted = "${data["internetRestricted"]}",
+    internet = "${data["internet"]}",
+    messages = "${data["messages"]}",
+    notifications = "${data["notifications"]}",
+}\n`
         )
+
+        window.fs.newFile(
+            `${window.fs.homeDir}/paxoProjects/${slugify(data["name"])}/main.lua`,
+            `-- created by ${data["author"]} <${data["authorContact"]}>\n\n
+function run()
+    window = gui:window()
+    gui:setWindow(window)
+end\n`
+        )
+
         window.location.reload()
     }
 </script>

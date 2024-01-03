@@ -40,7 +40,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: start;
-    background: green;                        /* IMPORTANT: REPLACE BY THE HEXA OF THE PAXO LOGO */
+    background: #3bba9a;
     color: #fff;
     border-radius: 8px;
     box-shadow: 0px 0px 5px -3px #111;
@@ -53,4 +53,22 @@
 #loader .rotate {
     animation: rotate 1s infinite linear;
     transform-origin: 18px 18px;
+}
+
+/* ===================  EDITOR LOADER  =================== */
+
+#editor-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #3bba9a;
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 5px -3px #111;
 }

@@ -1,6 +1,8 @@
 const fs = require('fs')
 const { readFolderContent } = require('./read')
 
+const logger = require('../logs/handler')
+
 /**
  * Deletes a specified file with its path.
  * @param {string} filePath
@@ -23,7 +25,7 @@ function deleteFolder(folderPath, recursive = false) {
     try {
         fs.rmSync(folderPath, { recursive: recursive })
     } catch (err) {
-        console.log(err)
+        logger.logError('fs:delete', 'error while deleting the folder : ' + err)
     }
 }
 

@@ -1,5 +1,7 @@
 const fs = require('fs')
 
+const logger = require('../logs/handler')
+
 /**
  * Create a new folder.
  * @param {string} folderPath
@@ -8,7 +10,7 @@ function newFolder(folderPath) {
     if (!fs.existsSync(folderPath)) {
         fs.mkdirSync(folderPath, { recursive: true });
     } else {
-        console.log('Folder already exists.')
+        logger.logWarning('fs:write', 'folder already exists')
     }
 }
 
@@ -20,9 +22,9 @@ function newFolder(folderPath) {
 function newFile(filePath, fileContent) {
     fs.writeFile(filePath, fileContent, (err) => {
         if (err) {
-            console.error(err)
+            logger.logError('fs:write', 'error while creating the file : ' + err)
         } else {
-            console.log('File is created successfully.')
+            logger.logInfo('fs:write', 'file created successfully')
         }
     })
 }
@@ -35,9 +37,9 @@ function newFile(filePath, fileContent) {
 function editFile(filePath, newFileContent) {
     fs.writeFile(filePath, newFileContent, (err) => {
         if (err) {
-            console.error(err)
+            logger.logError('fs:write', 'error while editing the file : ' + err)
         } else {
-            console.log('File is edited successfully.')
+            logger.logInfo('fs:write', 'file edited successfully')
         }
     })
 }
