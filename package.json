@@ -2,9 +2,16 @@
   "name": "paxo-ide",
   "version": "1.0.0",
   "author": "Paxo IDE contributors",
+  "maintainers": [
+    "Welpike",
+    "Gabriel"
+  ],
   "description": "The official editor for paxo-phone apps development, with support of the paxolib API.",
   "private": false,
   "license": "CC0-1.0",
+  "repository": {
+    "url": "https://github.com/paxo-phone/paxo-ide"
+  },
   "main": "src/main.js",
   "scripts": {
     "build": "rollup -c",

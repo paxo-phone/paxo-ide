@@ -112,6 +112,23 @@ const template = [
         role: 'help',
         submenu: [
             {
+                label: 'Report error',
+                click: async () => {
+                    await shell.openExternal('https://github.com/paxo-phone/paxo-ide/issues')
+                }
+            },
+            {
+                label: 'Discord (help and support)',
+                click: async () => {
+                    await shell.openExternal('https://discord.gg/zRcc3RP2sF')
+                }
+            }
+        ]
+    },
+    {
+        label: 'About',
+        submenu: [
+            {
                 label: 'Paxo project',
                 click: async () => {
                     await shell.openExternal('https://paxo.fr')
@@ -127,18 +144,6 @@ const template = [
                 label: 'Contribute to the IDE',
                 click: async () => {
                     await shell.openExternal('https://github.com/paxo-phone/paxo-ide')
-                }
-            },
-            {
-                label: 'Report error',
-                click: async () => {
-                    await shell.openExternal('https://github.com/paxo-phone/paxo-ide/issues')
-                }
-            },
-            {
-                label: 'Discord (help and support)',
-                click: async () => {
-                    await shell.openExternal('https://discord.gg/zRcc3RP2sF')
                 }
             }
         ]

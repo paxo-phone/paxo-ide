@@ -3,6 +3,8 @@ const { template } = require('./menu')
 const path = require("path");
 const fs = require("fs")
 
+if (require('electron-squirrel-startup')) app.quit()
+
 const createWindow = () => {
     const mainWindow = new BrowserWindow({
       show: false,
