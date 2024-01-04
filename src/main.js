@@ -1,8 +1,11 @@
-const { app, BrowserWindow, session, ipcMain, nativeTheme, Menu } = require("electron");
-const { template } = require('./menu')
-const path = require("path");
+const path = require("path")
 const fs = require("fs")
 
+const { app, BrowserWindow, session, ipcMain, nativeTheme, Menu } = require("electron")
+
+const { template } = require('./menu')
+
+//require('update-electron-app')()  // auto update
 if (require('electron-squirrel-startup')) app.quit()
 
 const createWindow = () => {

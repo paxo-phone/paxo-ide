@@ -8,7 +8,7 @@
   ],
   "description": "The official editor for paxo-phone apps development, with support of the paxolib API.",
   "private": false,
-  "license": "CC0-1.0",
+  "license": "GPL-3.0",
   "repository": {
     "url": "https://github.com/paxo-phone/paxo-ide"
   },
@@ -46,6 +46,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "monaco-editor": "^0.43.0",
     "sirv-cli": "^2.0.0",
-    "toml": "^3.0.0"
+    "toml": "^3.0.0",
+    "update-electron-app": "^3.0.0"
   }
 }

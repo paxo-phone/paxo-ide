@@ -24,11 +24,11 @@
     }
 
     function createProject() {
-        let data = {}
+        let data = { permissions: [] }
 
         fields.forEach(field => {
             if (field.type === "checkbox") {
-                data[field.name] = document.querySelector(`#${field.name}`).checked
+                document.querySelector(`#${field.name}`).checked ? data['permissions'].push(field.name) : null
             } else {
                 data[field.name] = document.querySelector(`#${field.name}`).value
             }
@@ -49,13 +49,7 @@ author = "${data["author"]}"
 author_contact = "${data["author"]} <${data["authorContact"]}>"
 link = "${data["link"]}"
 
-[permissions]
-storage = "${data["storage"]}"
-external = "${data["external"]}"
-internet_restricted = "${data["internetRestricted"]}"
-internet = "${data["internet"]}"
-messages = "${data["messages"]}"
-notifications = "${data["notifications"]}"
+permissions = [ "${data["permissions"].join('", "')}" ]
 \n`
         )
 

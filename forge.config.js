@@ -2,17 +2,35 @@ const config = require('./package.json')
 
 module.exports = {
   packagerConfig: {
+    name: 'Paxo IDE',
+    executableName: 'paxo-ide',
+    appBundleId: 'fr.paxo.paxoide',
     asar: true,
     icon: '/public/logo',
+    protocols: [
+      {
+        name: 'Paxo IDE Launch Protocol',
+        schemes: ['paxo-ide'],
+      },
+    ],
+    win32metadata: {
+      CompanyName: 'Paxo project Community',
+      OriginalFilename: 'Paxo IDE',
+    },
   },
   rebuildConfig: {},
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
-      config: {
+      config: (arch) => ({
+        name: config.name,
         authors: config.author,
-        description: config.description
-      }
+        description: config.description,
+        exe: 'paxo-ide.exe',
+        setupExe: `paxo-ide-${config.version}-win32-${arch}-setup.exe`,
+        setupIcon: './public/logo.ico',
+        noMsi: true,
+      })
     },
     {
       name: '@electron-forge/maker-deb',
@@ -21,7 +39,8 @@ module.exports = {
           maintainer: config.maintainers,
           homepage: config.repository.url,
           name: config.name,
-          icon: './public/logo.ico'
+          icon: './public/logo.ico',
+          categories: ['Development', 'Utility'],
         }
       }
     },
