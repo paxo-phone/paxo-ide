@@ -1,4 +1,4 @@
-![logo](https://github.com/paxo-phone/paxo-ide/tree/main/public/paxo-banner.png)
+![logo](https://github.com/paxo-phone/paxo-ide/blob/dfc7cd8818c2e10e1d00e2b4c3921e890bc32fbf/public/paxo-banner.png)
 
 # paxo-ide
 
