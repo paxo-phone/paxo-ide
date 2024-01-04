@@ -2,7 +2,7 @@ const config = require('./package.json')
 
 module.exports = {
   packagerConfig: {
-    name: 'Paxo IDE',
+    name: 'PaxoIDE',
     executableName: 'paxo-ide',
     appBundleId: 'fr.paxo.paxoide',
     asar: true,
