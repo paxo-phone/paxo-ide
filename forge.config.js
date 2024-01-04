@@ -56,4 +56,17 @@ module.exports = {
       config: {},
     },
   ],
+  publishers: [
+    {
+      name: '@electron-forge/publisher-github',
+      config: {
+        repository: {
+          owner: 'paxo-phone',
+          name: 'paxo-ide'
+        },
+        prerelease: false,
+        draft: true
+      }
+    }
+  ]
 }
