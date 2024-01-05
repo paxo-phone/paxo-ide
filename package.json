@@ -1,5 +1,6 @@
 {
     "name": "paxo-ide",
+    "fullname": "PaxoIDE",
     "version": "1.0.0",
     "author": "Paxo IDE contributors",
     "maintainers": [

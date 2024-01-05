@@ -2,8 +2,8 @@ const config = require('./package.json')
 
 module.exports = {
   packagerConfig: {
-    name: 'PaxoIDE',
-    executableName: 'paxo-ide',
+    name: config.fullname,
+    executableName: config.name,
     appBundleId: 'fr.paxo.paxoide',
     asar: true,
     icon: '/public/logo',
@@ -27,7 +27,7 @@ module.exports = {
         authors: config.author,
         description: config.description,
         exe: 'paxo-ide.exe',
-        setupExe: `paxo-ide-${config.version}-win32-${arch}-setup.exe`,
+        setupExe: `PaxoIDE Setup.exe`,
         setupIcon: './public/logo.ico',
         noMsi: true,
       })
@@ -48,6 +48,13 @@ module.exports = {
       name: '@electron-forge/maker-zip',
       platforms: ['darwin', 'linux'],
       config: {}
+    },
+    {
+      name: '@electron-forge/maker-dmg',
+      config: {
+        name: config.name,
+        icon: '/public/logo.icns'
+      }
     }
   ],
   plugins: [
