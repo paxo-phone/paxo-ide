@@ -4,7 +4,7 @@ on:
  workflow_dispatch:
 
 jobs:
- build:
+ make:
    name: "Make distribuables"
    runs-on: ${{ matrix.os }}
    strategy:
@@ -13,10 +13,10 @@ jobs:
 
    steps:
    - name: Checkout code
-     uses: actions/checkout@v2
+     uses: actions/checkout@v4
 
    - name: Setup Node.js environment
-     uses: actions/setup-node@v2
+     uses: actions/setup-node@v4
      with:
        node-version: '18'
 
@@ -42,3 +42,15 @@ jobs:
        path: ./
        # An explicit key for restoring and saving the cache
        key: "${{ matrix.os }}-cache"
+
+ publish:
+   name: "Publish to Github Releases"
+   needs: make
+   runs-on: ubuntu-latest
+
+   steps:
+   - name: Download Artifacts
+     uses: actions/download-artifact@v4.1.0
+
+   - name: (Debug) list files
+     run: ls -R ./
