@@ -6,7 +6,7 @@ module.exports = {
     executableName: config.name,
     appBundleId: 'fr.paxo.paxoide',
     asar: true,
-    icon: '/public/logo',
+    icon: './public/logo',
     protocols: [
       {
         name: 'Paxo IDE Launch Protocol',
@@ -53,7 +53,7 @@ module.exports = {
       name: '@electron-forge/maker-dmg',
       config: {
         name: config.name,
-        icon: '/public/logo.icns'
+        icon: './public/logo.icns'
       }
     }
   ],
